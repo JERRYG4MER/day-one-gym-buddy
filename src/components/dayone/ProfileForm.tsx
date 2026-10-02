@@ -103,7 +103,7 @@ export function ProfileForm({
             max={5}
             step={1}
             value={[draft.daysPerWeek]}
-            onValueChange={([v]) => set({ daysPerWeek: v })}
+            onValueChange={([v]) => { if (v !== undefined) set({ daysPerWeek: v }); }}
           />
         </div>
         <div className="space-y-3">
@@ -114,7 +114,7 @@ export function ProfileForm({
             max={75}
             step={5}
             value={[draft.minutesPerSession]}
-            onValueChange={([v]) => set({ minutesPerSession: v })}
+            onValueChange={([v]) => { if (v !== undefined) set({ minutesPerSession: v }); }}
           />
         </div>
       </div>

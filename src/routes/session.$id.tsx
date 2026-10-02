@@ -30,7 +30,7 @@ const effortLabels = ["Very easy", "Comfortable", "Moderate", "Challenging", "Ve
 function defaultSets(prescription: string) {
   const m = prescription.match(/(\d+)\s*[x×]\s*(\d+)/);
   const count = m ? Math.min(Number(m[1]), 5) : 2;
-  const reps = m ? m[2] : "10";
+  const reps = m?.[2] ?? "10";
   return Array.from({ length: count }, (_, i) => ({ id: `s${i}`, reps, weight: "" }));
 }
 

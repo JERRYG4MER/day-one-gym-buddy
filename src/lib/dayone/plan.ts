@@ -225,7 +225,7 @@ function buildSession(profile: Profile, day: string, index: number, totalDays: n
     minutes <= 20 ? ["cardio", "hips", "mobility"] : ["cardio", "legs", "push", "hips", "balance"],
     ["cardio", "mobility", "core", "hips"],
   ];
-  const wanted = patterns[index % patterns.length];
+  const wanted = patterns[index % patterns.length] ?? slots;
 
   for (const tag of wanted) {
     const found = pick(profile, tag, used);
@@ -252,7 +252,7 @@ function buildSession(profile: Profile, day: string, index: number, totalDays: n
   return {
     id: `s-${index}-${day.toLowerCase()}`,
     day,
-    title: focusNames[index % focusNames.length],
+    title: focusNames[index % focusNames.length] ?? "Full body foundations",
     focus: blocks
       .map((b) => b.tags[0])
       .filter((v, i, arr) => arr.indexOf(v) === i)
@@ -281,7 +281,7 @@ export function generatePlan(profile: Profile): Plan {
     4: ["Monday", "Tuesday", "Thursday", "Saturday"],
     5: ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday"],
   };
-  const trainingDays = spread[days];
+  const trainingDays = spread[days] ?? [];
   const sessions: PlanSession[] = [];
   let index = 0;
   for (const day of DAYS) {

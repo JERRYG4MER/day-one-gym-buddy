@@ -13,8 +13,8 @@ export interface CoachContext {
   plan: Plan | null;
   sessionsThisWeek: number;
   minutesThisWeek: number;
-  nextSessionTitle?: string;
-  nextSessionDay?: string;
+  nextSessionTitle?: string | undefined;
+  nextSessionDay?: string | undefined;
 }
 
 export const suggestedPrompts = [

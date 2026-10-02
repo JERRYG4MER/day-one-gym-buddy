@@ -45,11 +45,11 @@ export function Markdown({ text }: { text: string }) {
     if (bullet) {
       if (ordered) flush(`l${i}`);
       ordered = false;
-      list.push(bullet[1]);
+      list.push(bullet[1] ?? "");
     } else if (num) {
       if (!ordered) flush(`l${i}`);
       ordered = true;
-      list.push(num[1]);
+      list.push(num[1] ?? "");
     } else {
       flush(`l${i}`);
       if (line.trim()) {
