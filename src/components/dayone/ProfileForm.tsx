@@ -91,7 +91,12 @@ export function ProfileForm({
       <fieldset className="space-y-3">
         <legend className="text-sm font-semibold">What would you like to work toward?</legend>
         <p className="text-sm text-muted-foreground">Pick any that fit, or skip this.</p>
-        <Chips label="Goals" options={goalOptions} value={draft.goals} onChange={(v) => set({ goals: v as Profile["goals"] })} />
+        <Chips
+          label="Goals"
+          options={goalOptions}
+          value={draft.goals}
+          onChange={(v) => set({ goals: v as Profile["goals"] })}
+        />
       </fieldset>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -103,7 +108,9 @@ export function ProfileForm({
             max={5}
             step={1}
             value={[draft.daysPerWeek]}
-            onValueChange={([v]) => { if (v !== undefined) set({ daysPerWeek: v }); }}
+            onValueChange={([v]) => {
+              if (v !== undefined) set({ daysPerWeek: v });
+            }}
           />
         </div>
         <div className="space-y-3">
@@ -114,7 +121,9 @@ export function ProfileForm({
             max={75}
             step={5}
             value={[draft.minutesPerSession]}
-            onValueChange={([v]) => { if (v !== undefined) set({ minutesPerSession: v }); }}
+            onValueChange={([v]) => {
+              if (v !== undefined) set({ minutesPerSession: v });
+            }}
           />
         </div>
       </div>
@@ -154,7 +163,8 @@ export function ProfileForm({
       <fieldset className="space-y-3">
         <legend className="text-sm font-semibold">Movement considerations</legend>
         <p className="text-sm text-muted-foreground">
-          Entirely optional. If you share something here, we'll suggest gentler options — we never diagnose or assume anything.
+          Entirely optional. If you share something here, we'll suggest gentler options — we never
+          diagnose or assume anything.
         </p>
         <Chips
           label="Movement considerations"
@@ -173,7 +183,9 @@ export function ProfileForm({
             Skip for now
           </Button>
         )}
-        <Badge variant="secondary" className="ml-auto">Saved on this device only</Badge>
+        <Badge variant="secondary" className="ml-auto">
+          Saved on this device only
+        </Badge>
       </div>
     </form>
   );

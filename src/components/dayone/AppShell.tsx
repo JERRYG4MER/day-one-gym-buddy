@@ -1,9 +1,24 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BookOpen, CalendarDays, HeartHandshake, LineChart, Settings, Sun, LifeBuoy } from "lucide-react";
+import {
+  BookOpen,
+  CalendarDays,
+  HeartHandshake,
+  LineChart,
+  Settings,
+  Sun,
+  LifeBuoy,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { SafetyNote } from "./SafetyNote";
 
 const nav = [
@@ -29,13 +44,30 @@ function HelpDialog() {
           <DialogDescription>A quick orientation, any time you need it.</DialogDescription>
         </DialogHeader>
         <ul className="ml-5 list-disc space-y-2 text-sm text-muted-foreground">
-          <li><strong className="text-foreground">Today</strong> — your check-in and the session suggested for right now.</li>
-          <li><strong className="text-foreground">My plan</strong> — your week, why it looks like this, and how to change it.</li>
-          <li><strong className="text-foreground">Progress</strong> — sessions, minutes, streaks and your own wins.</li>
-          <li><strong className="text-foreground">Learn</strong> — plain-English guides to machines and gym life.</li>
-          <li><strong className="text-foreground">Coach</strong> — ask anything; answers use your plan and profile.</li>
+          <li>
+            <strong className="text-foreground">Today</strong> — your check-in and the session
+            suggested for right now.
+          </li>
+          <li>
+            <strong className="text-foreground">My plan</strong> — your week, why it looks like
+            this, and how to change it.
+          </li>
+          <li>
+            <strong className="text-foreground">Progress</strong> — sessions, minutes, streaks and
+            your own wins.
+          </li>
+          <li>
+            <strong className="text-foreground">Learn</strong> — plain-English guides to machines
+            and gym life.
+          </li>
+          <li>
+            <strong className="text-foreground">Coach</strong> — ask anything; answers use your plan
+            and profile.
+          </li>
         </ul>
-        <p className="text-sm text-muted-foreground">Everything is saved on this device. No account, no sign-in.</p>
+        <p className="text-sm text-muted-foreground">
+          Everything is saved on this device. No account, no sign-in.
+        </p>
         <SafetyNote />
       </DialogContent>
     </Dialog>
@@ -50,7 +82,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r border-sidebar-border bg-sidebar px-4 py-6 md:flex">
         <Link to="/" className="mb-8 block px-2">
           <span className="font-display text-2xl font-semibold text-foreground">Day One</span>
-          <span className="mt-1 block text-xs text-muted-foreground">Your beginner gym companion</span>
+          <span className="mt-1 block text-xs text-muted-foreground">
+            Your beginner gym companion
+          </span>
         </Link>
         <nav className="flex flex-col gap-1" aria-label="Main">
           {nav.map((item) => {
@@ -61,7 +95,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 to={item.to}
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-                  active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground hover:bg-sidebar-accent/60",
+                  active
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-muted-foreground hover:bg-sidebar-accent/60",
                 )}
               >
                 <item.icon className="size-4" aria-hidden />
@@ -75,7 +111,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             to="/settings"
             className={cn(
               "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-              pathname.startsWith("/settings") ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-muted-foreground hover:bg-sidebar-accent/60",
+              pathname.startsWith("/settings")
+                ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                : "text-muted-foreground hover:bg-sidebar-accent/60",
             )}
           >
             <Settings className="size-4" aria-hidden />
@@ -86,7 +124,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="md:pl-64">
-        <main className="mx-auto w-full max-w-5xl px-4 pt-6 pb-28 sm:px-6 md:pb-12">{children}</main>
+        <main className="mx-auto w-full max-w-5xl px-4 pt-6 pb-28 sm:px-6 md:pb-12">
+          {children}
+        </main>
       </div>
 
       <nav

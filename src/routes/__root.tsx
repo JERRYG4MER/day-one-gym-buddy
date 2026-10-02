@@ -81,9 +81,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Day One — Your beginner gym companion" },
-      { name: "description", content: "A calm, friendly gym companion for your first weeks: what to do today, how the gym works, and progress without pressure." },
+      {
+        name: "description",
+        content:
+          "A calm, friendly gym companion for your first weeks: what to do today, how the gym works, and progress without pressure.",
+      },
       { property: "og:title", content: "Day One — Your beginner gym companion" },
-      { property: "og:description", content: "A calm, friendly gym companion for your first weeks: what to do today, how the gym works, and progress without pressure." },
+      {
+        property: "og:description",
+        content:
+          "A calm, friendly gym companion for your first weeks: what to do today, how the gym works, and progress without pressure.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -94,7 +102,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap",
+      },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),

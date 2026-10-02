@@ -34,7 +34,8 @@ export const guides: Guide[] = [
       "Starting at a speed that feels like a test rather than a warm-up.",
       "Stepping off while the belt is still moving.",
     ],
-    unsure: "Ask a staff member to show you the Quick Start and stop buttons — it takes ten seconds and they're used to it.",
+    unsure:
+      "Ask a staff member to show you the Quick Start and stop buttons — it takes ten seconds and they're used to it.",
   },
   {
     id: "bike",
@@ -53,8 +54,13 @@ export const guides: Guide[] = [
       "Finish with 2 easy minutes to cool down.",
     ],
     cue: "Keep your pedalling smooth and round rather than stamping down.",
-    mistakes: ["Seat too low, which crowds the knees.", "Gripping the bars hard and hunching.", "Jumping straight to high resistance."],
-    unsure: "If the seat won't adjust, ask a staff member — the lever placement differs on every model.",
+    mistakes: [
+      "Seat too low, which crowds the knees.",
+      "Gripping the bars hard and hunching.",
+      "Jumping straight to high resistance.",
+    ],
+    unsure:
+      "If the seat won't adjust, ask a staff member — the lever placement differs on every model.",
   },
   {
     id: "leg-press",
@@ -75,8 +81,13 @@ export const guides: Guide[] = [
       "Re-lock the safety catch before getting out.",
     ],
     cue: "Push through your whole foot, and keep your knees tracking in line with your toes.",
-    mistakes: ["Lowering too far too soon.", "Lifting your hips off the seat.", "Loading too much weight on day one."],
-    unsure: "Safety catches vary a lot between machines. Ask a staff member to show you how to lock and unlock this one.",
+    mistakes: [
+      "Lowering too far too soon.",
+      "Lifting your hips off the seat.",
+      "Loading too much weight on day one.",
+    ],
+    unsure:
+      "Safety catches vary a lot between machines. Ask a staff member to show you how to lock and unlock this one.",
   },
   {
     id: "chest-press",
@@ -95,8 +106,13 @@ export const guides: Guide[] = [
       "Do one more set if it still feels good.",
     ],
     cue: "Keep your shoulders back against the pad as you press.",
-    mistakes: ["Seat set too high or low so the press feels awkward.", "Locking the elbows hard.", "Rushing the return."],
-    unsure: "If the seat height feels wrong but you can't tell why, ask a staff member to set it with you once.",
+    mistakes: [
+      "Seat set too high or low so the press feels awkward.",
+      "Locking the elbows hard.",
+      "Rushing the return.",
+    ],
+    unsure:
+      "If the seat height feels wrong but you can't tell why, ask a staff member to set it with you once.",
   },
   {
     id: "lat-pulldown",
@@ -115,8 +131,13 @@ export const guides: Guide[] = [
       "Do 8–10 reps, rest, repeat.",
     ],
     cue: "Lead with your elbows going down towards your ribs, not with your hands.",
-    mistakes: ["Pulling the bar behind the neck.", "Leaning far back and using momentum.", "Letting the weight yank your arms up."],
-    unsure: "Ask a staff member which attachment to use — most gyms have several bars on a rack nearby.",
+    mistakes: [
+      "Pulling the bar behind the neck.",
+      "Leaning far back and using momentum.",
+      "Letting the weight yank your arms up.",
+    ],
+    unsure:
+      "Ask a staff member which attachment to use — most gyms have several bars on a rack nearby.",
   },
   {
     id: "cable-machine",
@@ -135,7 +156,11 @@ export const guides: Guide[] = [
       "Step in carefully to set the weight down — don't let it crash.",
     ],
     cue: "Control the return; that's where most of the benefit is.",
-    mistakes: ["Letting the stack slam down.", "Standing too close so there's no tension.", "Using the whole body to swing the handle."],
+    mistakes: [
+      "Letting the stack slam down.",
+      "Standing too close so there's no tension.",
+      "Using the whole body to swing the handle.",
+    ],
     unsure: "Attachments and clips vary. Ask a staff member to show you how to swap one safely.",
   },
   {
@@ -155,8 +180,13 @@ export const guides: Guide[] = [
       "Put them back in the right slot on the rack.",
     ],
     cue: "Slow down the lowering phase — two seconds down is a good rhythm.",
-    mistakes: ["Going too heavy on the first session.", "Dropping them on the floor.", "Leaving them out on the gym floor."],
-    unsure: "If a rack looks confusing or the weights are in kilos and pounds mixed, ask a staff member.",
+    mistakes: [
+      "Going too heavy on the first session.",
+      "Dropping them on the floor.",
+      "Leaving them out on the gym floor.",
+    ],
+    unsure:
+      "If a rack looks confusing or the weights are in kilos and pounds mixed, ask a staff member.",
   },
 ];
 
