@@ -4,9 +4,18 @@ export type Experience = "brand-new" | "returning" | "some" | "prefer-not-to-say
 
 export type Equipment = "full-gym" | "machines-only" | "free-weights" | "home-minimal" | "not-sure";
 
-export type Activity = "machines" | "dumbbells" | "bodyweight" | "walking" | "cycling" | "stretching" | "classes";
+export type Activity =
+  "machines" | "dumbbells" | "bodyweight" | "walking" | "cycling" | "stretching" | "classes";
 
-export type Consideration = "knees" | "back" | "shoulders" | "wrists" | "balance" | "breathing" | "none" | "prefer-not-to-say";
+export type Consideration =
+  | "knees"
+  | "back"
+  | "shoulders"
+  | "wrists"
+  | "balance"
+  | "breathing"
+  | "none"
+  | "prefer-not-to-say";
 
 export interface Profile {
   name: string;

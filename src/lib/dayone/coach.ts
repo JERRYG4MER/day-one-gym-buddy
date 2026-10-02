@@ -13,8 +13,8 @@ export interface CoachContext {
   plan: Plan | null;
   sessionsThisWeek: number;
   minutesThisWeek: number;
-  nextSessionTitle?: string;
-  nextSessionDay?: string;
+  nextSessionTitle?: string | undefined;
+  nextSessionDay?: string | undefined;
 }
 
 export const suggestedPrompts = [
@@ -36,7 +36,9 @@ function has(text: string, ...words: string[]) {
 }
 
 function guideAnswer(q: string): string | null {
-  const g = guides.find((guide) => q.includes(guide.id.replace("-", " ")) || q.includes(guide.name.toLowerCase()));
+  const g = guides.find(
+    (guide) => q.includes(guide.id.replace("-", " ")) || q.includes(guide.name.toLowerCase()),
+  );
   if (!g) return null;
   return [
     `**${g.name}** — ${g.what}`,
@@ -68,7 +70,9 @@ export function answerQuestion(question: string, ctx: CoachContext): string {
     return `Today's session is **${ctx.nextSessionTitle}**, about ${ctx.profile.minutesPerSession} minutes. Start with the warm-up on the session screen, then work through the exercise list — tick each one off as you go. Keep the weights light enough that the last rep of each set still feels controlled. Tap **Start session** on the Today page when you're ready.`;
   }
 
-  if (has(q, "nervous", "anxious", "scared", "intimidat", "embarrass", "self-conscious", "everyone")) {
+  if (
+    has(q, "nervous", "anxious", "scared", "intimidat", "embarrass", "self-conscious", "everyone")
+  ) {
     return `That feeling is extremely common on the first few visits, and it fades faster than you'd expect.\n\nA few things that help:\n- Have a plan before you walk in, so you never have to stand around deciding. Yours is in **My plan**.\n- Start in a corner you're comfortable with — the treadmill or bike area is usually easy.\n- Pick two machines for your first visit rather than trying everything.\n- Staff genuinely expect to be asked how equipment works. It's part of the job.\n\nMost people around you are focused entirely on their own set.`;
   }
 
@@ -93,7 +97,8 @@ export function answerQuestion(question: string, ctx: CoachContext): string {
   }
 
   if (has(q, "plan", "why this", "program", "routine")) {
-    if (!ctx.plan) return "Once you've answered a few questions in your profile, I can walk you through your plan here.";
+    if (!ctx.plan)
+      return "Once you've answered a few questions in your profile, I can walk you through your plan here.";
     return `Your week is built around ${ctx.profile.daysPerWeek} ${ctx.profile.daysPerWeek === 1 ? "session" : "sessions"} of roughly ${ctx.profile.minutesPerSession} minutes, with recovery days in between.\n\n${ctx.plan.rationale.map((r) => `- ${r}`).join("\n")}\n\nYou can change the days, time per visit or anything in your profile from **Settings**, and regenerate the plan in one tap.`;
   }
 

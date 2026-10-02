@@ -202,7 +202,11 @@ function pick(profile: Profile, tag: string, used: Set<string>): Pool | undefine
     if (e.avoid?.some((a) => avoidSet.has(a as never))) return false;
     if (e.needs?.some((n) => !profile.activities.includes(n as never))) return false;
     if (profile.equipment === "machines-only" && e.tags.includes("dumbbells")) return false;
-    if (profile.equipment === "home-minimal" && (e.tags.includes("machine") || e.tags.includes("cable"))) return false;
+    if (
+      profile.equipment === "home-minimal" &&
+      (e.tags.includes("machine") || e.tags.includes("cable"))
+    )
+      return false;
     return true;
   });
   candidates.sort((a, b) => {
@@ -212,12 +216,21 @@ function pick(profile: Profile, tag: string, used: Set<string>): Pool | undefine
   return candidates[0];
 }
 
-function buildSession(profile: Profile, day: string, index: number, totalDays: number): PlanSession {
+function buildSession(
+  profile: Profile,
+  day: string,
+  index: number,
+  totalDays: number,
+): PlanSession {
   const used = new Set<string>();
   const blocks: ExerciseBlock[] = [];
   const minutes = profile.minutesPerSession;
   const slots =
-    minutes <= 20 ? ["cardio", "legs", "pull"] : minutes <= 35 ? ["cardio", "legs", "push", "pull"] : ["cardio", "legs", "push", "pull", "core"];
+    minutes <= 20
+      ? ["cardio", "legs", "pull"]
+      : minutes <= 35
+        ? ["cardio", "legs", "push", "pull"]
+        : ["cardio", "legs", "push", "pull", "core"];
 
   const patterns: string[][] = [
     slots,
@@ -225,7 +238,7 @@ function buildSession(profile: Profile, day: string, index: number, totalDays: n
     minutes <= 20 ? ["cardio", "hips", "mobility"] : ["cardio", "legs", "push", "hips", "balance"],
     ["cardio", "mobility", "core", "hips"],
   ];
-  const wanted = patterns[index % patterns.length];
+  const wanted = patterns[index % patterns.length] ?? slots;
 
   for (const tag of wanted) {
     const found = pick(profile, tag, used);
@@ -246,13 +259,25 @@ function buildSession(profile: Profile, day: string, index: number, totalDays: n
     }
   }
 
-  const focusNames = ["Full body foundations", "Steady strength", "Move and breathe", "Gentle reset"];
-  const intensity: PlanSession["intensity"] = index === 0 ? "easy" : index % 3 === 2 ? "easy" : totalDays > 3 && index === 1 ? "build" : "steady";
+  const focusNames = [
+    "Full body foundations",
+    "Steady strength",
+    "Move and breathe",
+    "Gentle reset",
+  ];
+  const intensity: PlanSession["intensity"] =
+    index === 0
+      ? "easy"
+      : index % 3 === 2
+        ? "easy"
+        : totalDays > 3 && index === 1
+          ? "build"
+          : "steady";
 
   return {
     id: `s-${index}-${day.toLowerCase()}`,
     day,
-    title: focusNames[index % focusNames.length],
+    title: focusNames[index % focusNames.length] ?? "Full body foundations",
     focus: blocks
       .map((b) => b.tags[0])
       .filter((v, i, arr) => arr.indexOf(v) === i)
@@ -281,7 +306,7 @@ export function generatePlan(profile: Profile): Plan {
     4: ["Monday", "Tuesday", "Thursday", "Saturday"],
     5: ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday"],
   };
-  const trainingDays = spread[days];
+  const trainingDays = spread[days] ?? [];
   const sessions: PlanSession[] = [];
   let index = 0;
   for (const day of DAYS) {
@@ -296,7 +321,8 @@ export function generatePlan(profile: Profile): Plan {
         focus: "rest · light movement",
         minutes: 0,
         intensity: "easy",
-        summary: "Rest is part of the plan. A short walk or some stretching counts if you feel like moving.",
+        summary:
+          "Rest is part of the plan. A short walk or some stretching counts if you feel like moving.",
         warmup: [],
         blocks: [],
         coolDown: [],
@@ -314,7 +340,9 @@ export function generatePlan(profile: Profile): Plan {
       : profile.equipment === "home-minimal"
         ? "We've kept things bodyweight-first so the plan works with minimal equipment."
         : "There's a mix of machines and simple free-weight work, with machine substitutions listed for everything.",
-    profile.considerations.length && !profile.considerations.includes("prefer-not-to-say") && !profile.considerations.includes("none")
+    profile.considerations.length &&
+    !profile.considerations.includes("prefer-not-to-say") &&
+    !profile.considerations.includes("none")
       ? "You mentioned some movement considerations, so we've swapped in gentler options and every exercise has an alternative."
       : "Every exercise has a listed alternative, so you can swap anything that doesn't feel right on the day.",
     "Loads and reps start deliberately light. Add a little only when a session felt smooth and repeatable.",

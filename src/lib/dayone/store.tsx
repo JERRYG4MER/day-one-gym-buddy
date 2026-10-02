@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import type { AppState, CheckIn, ChatMessage, CompletedSession, Plan, Profile, Win } from "./types";
 import { defaultProfile, generatePlan } from "./plan";
 
@@ -64,8 +72,18 @@ function seedState(): AppState {
       },
     ],
     wins: [
-      { id: "w1", date: daysAgo(6), text: "Walked into the free weights area for the first time.", sample: true },
-      { id: "w2", date: daysAgo(2), text: "Three sessions in one week — a first for me.", sample: true },
+      {
+        id: "w1",
+        date: daysAgo(6),
+        text: "Walked into the free weights area for the first time.",
+        sample: true,
+      },
+      {
+        id: "w2",
+        date: daysAgo(2),
+        text: "Three sessions in one week — a first for me.",
+        sample: true,
+      },
     ],
     messages: [],
   };
@@ -129,11 +147,16 @@ export function DayOneProvider({ children }: { children: ReactNode }) {
       saveProfile,
       regeneratePlan,
       setPlan: (plan) => setState((s) => ({ ...s, plan })),
-      addCheckIn: (c) => setState((s) => ({ ...s, checkIns: [c, ...s.checkIns.filter((x) => x.date !== c.date)] })),
+      addCheckIn: (c) =>
+        setState((s) => ({ ...s, checkIns: [c, ...s.checkIns.filter((x) => x.date !== c.date)] })),
       addCompleted: (c) => setState((s) => ({ ...s, completed: [c, ...s.completed] })),
-      removeCompleted: (id) => setState((s) => ({ ...s, completed: s.completed.filter((c) => c.id !== id) })),
+      removeCompleted: (id) =>
+        setState((s) => ({ ...s, completed: s.completed.filter((c) => c.id !== id) })),
       addWin: (text) =>
-        setState((s) => ({ ...s, wins: [{ id: `w-${Date.now()}`, date: new Date().toISOString(), text }, ...s.wins] })),
+        setState((s) => ({
+          ...s,
+          wins: [{ id: `w-${Date.now()}`, date: new Date().toISOString(), text }, ...s.wins],
+        })),
       removeWin: (id) => setState((s) => ({ ...s, wins: s.wins.filter((w) => w.id !== id) })),
       addMessage: (m) => setState((s) => ({ ...s, messages: [...s.messages, m] })),
       clearMessages: () => setState((s) => ({ ...s, messages: [] })),
