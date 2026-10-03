@@ -127,7 +127,10 @@ function SessionPage() {
     window.scrollTo({ top: 0 });
   };
 
-  const blockMin = Math.max(3, Math.round((session.minutes - 10) / Math.max(1, session.blocks.length)));
+  const blockMin = Math.max(
+    3,
+    Math.round((session.minutes - 10) / Math.max(1, session.blocks.length)),
+  );
   const flow = [
     { label: "Warm-up", min: 5 },
     ...session.blocks.map((b) => ({ label: b.name, min: blockMin })),
@@ -160,22 +163,27 @@ function SessionPage() {
           Roughly how your {session.minutes} minutes will go. No need to be exact.
         </p>
         <ol className="mt-4 space-y-2">
-          {flow.reduce<{ items: JSX.Element[]; t: number }>(
-            (acc, f, i) => {
-              acc.items.push(
-                <li key={i} className="flex items-center gap-3 text-sm">
-                  <span className="w-16 shrink-0 tabular-nums text-muted-foreground">
-                    {acc.t}–{acc.t + f.min} min
-                  </span>
-                  <span className="h-2 rounded-full bg-sage" style={{ width: `${f.min * 6}px` }} />
-                  <span className="font-medium">{f.label}</span>
-                </li>,
-              );
-              acc.t += f.min;
-              return acc;
-            },
-            { items: [], t: 0 },
-          ).items}
+          {
+            flow.reduce<{ items: JSX.Element[]; t: number }>(
+              (acc, f, i) => {
+                acc.items.push(
+                  <li key={i} className="flex items-center gap-3 text-sm">
+                    <span className="w-16 shrink-0 tabular-nums text-muted-foreground">
+                      {acc.t}–{acc.t + f.min} min
+                    </span>
+                    <span
+                      className="h-2 rounded-full bg-sage"
+                      style={{ width: `${f.min * 6}px` }}
+                    />
+                    <span className="font-medium">{f.label}</span>
+                  </li>,
+                );
+                acc.t += f.min;
+                return acc;
+              },
+              { items: [], t: 0 },
+            ).items
+          }
         </ol>
       </Panel>
 
@@ -193,20 +201,31 @@ function SessionPage() {
                 </summary>
                 <div className="mt-3 grid gap-4 text-sm sm:grid-cols-[200px_1fr]">
                   <MotionFigure
-                    motion={getExerciseInfo(session.blocks.find((b) => getExerciseInfo(b.id).guide?.id === g.id)?.id ?? "").motion}
+                    motion={
+                      getExerciseInfo(
+                        session.blocks.find((b) => getExerciseInfo(b.id).guide?.id === g.id)?.id ??
+                          "",
+                      ).motion
+                    }
                     className="aspect-[17/14] w-full"
                   />
                   <div className="space-y-2">
                     <p>{g.what}</p>
                     <p className="font-semibold">Set it up</p>
                     <ul className="list-disc space-y-1 pl-5">
-                      {g.setup.map((s) => <li key={s}>{s}</li>)}
+                      {g.setup.map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
                     </ul>
                     <p className="font-semibold">Avoid</p>
                     <ul className="list-disc space-y-1 pl-5 text-muted-foreground">
-                      {g.mistakes.map((s) => <li key={s}>{s}</li>)}
+                      {g.mistakes.map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
                     </ul>
-                    <p className="text-muted-foreground"><strong>Unsure?</strong> {g.unsure}</p>
+                    <p className="text-muted-foreground">
+                      <strong>Unsure?</strong> {g.unsure}
+                    </p>
                   </div>
                 </div>
               </details>
