@@ -12,6 +12,8 @@ import { Progress } from "@/components/ui/progress";
 import { PageHeader, Panel } from "@/components/dayone/ui";
 import { SafetyNote } from "@/components/dayone/SafetyNote";
 import { cn } from "@/lib/utils";
+import { ExerciseDemo, MotionFigure, getExerciseInfo } from "@/components/dayone/ExerciseDemo";
+import type { JSX } from "react";
 
 export const Route = createFileRoute("/session/$id")({
   head: () => ({
@@ -125,6 +127,24 @@ function SessionPage() {
     window.scrollTo({ top: 0 });
   };
 
+  const blockMin = Math.max(
+    3,
+    Math.round((session.minutes - 10) / Math.max(1, session.blocks.length)),
+  );
+  const flow = [
+    { label: "Warm-up", min: 5 },
+    ...session.blocks.map((b) => ({ label: b.name, min: blockMin })),
+    { label: "Cool-down", min: 5 },
+  ];
+  const machines = Array.from(
+    new Map(
+      session.blocks
+        .map((b) => getExerciseInfo(b.id).guide)
+        .filter((g): g is NonNullable<typeof g> => !!g)
+        .map((g) => [g.id, g]),
+    ).values(),
+  );
+
   return (
     <div className="space-y-6">
       <PageHeader eyebrow={`${session.day} · about ${session.minutes} min`} title={session.title}>
@@ -136,6 +156,83 @@ function SessionPage() {
           <span className="w-10 text-right text-muted-foreground">{pct}%</span>
         </div>
       </div>
+
+      <Panel>
+        <h2 className="font-display text-xl font-semibold">Today's flow</h2>
+        <p className="text-sm text-muted-foreground">
+          Roughly how your {session.minutes} minutes will go. No need to be exact.
+        </p>
+        <ol className="mt-4 space-y-2">
+          {
+            flow.reduce<{ items: JSX.Element[]; t: number }>(
+              (acc, f, i) => {
+                acc.items.push(
+                  <li key={i} className="flex items-center gap-3 text-sm">
+                    <span className="w-16 shrink-0 tabular-nums text-muted-foreground">
+                      {acc.t}–{acc.t + f.min} min
+                    </span>
+                    <span
+                      className="h-2 rounded-full bg-sage"
+                      style={{ width: `${f.min * 6}px` }}
+                    />
+                    <span className="font-medium">{f.label}</span>
+                  </li>,
+                );
+                acc.t += f.min;
+                return acc;
+              },
+              { items: [], t: 0 },
+            ).items
+          }
+        </ol>
+      </Panel>
+
+      {machines.length > 0 && (
+        <Panel>
+          <h2 className="font-display text-xl font-semibold">Equipment you'll use today</h2>
+          <p className="text-sm text-muted-foreground">
+            Tap each one for a quick briefing before you start.
+          </p>
+          <div className="mt-3 space-y-2">
+            {machines.map((g) => (
+              <details key={g.id} className="group rounded-xl border border-border p-3">
+                <summary className="cursor-pointer list-none font-medium">
+                  {g.name} <span className="text-xs text-muted-foreground">· {g.category}</span>
+                </summary>
+                <div className="mt-3 grid gap-4 text-sm sm:grid-cols-[200px_1fr]">
+                  <MotionFigure
+                    motion={
+                      getExerciseInfo(
+                        session.blocks.find((b) => getExerciseInfo(b.id).guide?.id === g.id)?.id ??
+                          "",
+                      ).motion
+                    }
+                    className="aspect-[17/14] w-full"
+                  />
+                  <div className="space-y-2">
+                    <p>{g.what}</p>
+                    <p className="font-semibold">Set it up</p>
+                    <ul className="list-disc space-y-1 pl-5">
+                      {g.setup.map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
+                    </ul>
+                    <p className="font-semibold">Avoid</p>
+                    <ul className="list-disc space-y-1 pl-5 text-muted-foreground">
+                      {g.mistakes.map((s) => (
+                        <li key={s}>{s}</li>
+                      ))}
+                    </ul>
+                    <p className="text-muted-foreground">
+                      <strong>Unsure?</strong> {g.unsure}
+                    </p>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
+        </Panel>
+      )}
 
       <Panel>
         <h2 className="font-display text-xl font-semibold">1. Warm-up</h2>
@@ -185,7 +282,10 @@ function SessionPage() {
                   <Check className="size-4" /> {log.done ? "Done" : "Mark done"}
                 </Button>
               </div>
-              <p className="mt-2 text-sm">
+              <div className="mt-3">
+                <ExerciseDemo id={b.id} name={b.name} cue={b.cue} prescription={b.prescription} />
+              </div>
+              <p className="mt-3 text-sm">
                 <strong>Cue:</strong> {b.cue}
               </p>
               <p className="text-sm text-muted-foreground">

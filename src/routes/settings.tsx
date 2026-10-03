@@ -97,6 +97,22 @@ function SettingsPage() {
           </AlertDialogContent>
         </AlertDialog>
       </Panel>
+      <Panel>
+        <h2 className="font-display text-xl font-semibold">Put Day One on your phone</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Install it once and it opens like a regular app, even with weak gym signal.
+        </p>
+        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
+          <li>
+            <strong>iPhone (Safari):</strong> tap Share, then "Add to Home Screen".
+          </li>
+          <li>
+            <strong>Android (Chrome):</strong> tap the ⋮ menu, then "Install app" or "Add to Home
+            screen".
+          </li>
+        </ul>
+        <p className="mt-2 text-xs text-muted-foreground">Works from the published app link.</p>
+      </Panel>
       <SafetyNote />
     </div>
   );

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import { PageHeader, Panel } from "@/components/dayone/ui";
 import { cn } from "@/lib/utils";
+import { MotionFigure, StepPlayer } from "@/components/dayone/ExerciseDemo";
 
 export const Route = createFileRoute("/learn")({
   head: () => ({
@@ -57,7 +58,8 @@ function LearnPage() {
   return (
     <div className="space-y-6">
       <PageHeader eyebrow="Plain English, no jargon" title="Learn the gym">
-        Know what a machine does before you sit on it.
+        Know what a machine does before you sit on it. Open any equipment to watch a short animated
+        how-to.
       </PageHeader>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -127,8 +129,16 @@ function LearnPage() {
               </AccordionTrigger>
               <AccordionContent className="space-y-3">
                 <p className="text-sm">{g.what}</p>
+                <div className="grid gap-4 sm:grid-cols-[220px_1fr]">
+                  <MotionFigure motion={g.motion} className="aspect-[17/14] w-full" />
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                      Watch how to use it
+                    </p>
+                    <StepPlayer steps={g.firstUse} />
+                  </div>
+                </div>
                 <List title="Set it up" items={g.setup} />
-                <List title="First time using it" items={g.firstUse} />
                 <p className="text-sm">
                   <strong>Key cue:</strong> {g.cue}
                 </p>
