@@ -168,7 +168,7 @@ function SessionPage() {
               (acc, f, i) => {
                 acc.items.push(
                   <li key={i} className="flex items-center gap-3 text-sm">
-                    <span className="w-16 shrink-0 tabular-nums text-muted-foreground">
+                    <span className="w-24 shrink-0 whitespace-nowrap tabular-nums text-muted-foreground">
                       {acc.t}–{acc.t + f.min} min
                     </span>
                     <span
