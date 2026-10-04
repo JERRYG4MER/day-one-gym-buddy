@@ -380,7 +380,7 @@ function AnimLine({
 }
 
 export function MotionFigure({ motion, className }: { motion: string; className?: string }) {
-  const m = motions[motion] ?? motions.squat!;
+  const m = motions[motion] ?? motions['squat']!;
   const ref = useRef<SVGSVGElement>(null);
   const [playing, setPlaying] = useState(true);
   const get = (pose: Pose, k: keyof Pose): Pt =>
